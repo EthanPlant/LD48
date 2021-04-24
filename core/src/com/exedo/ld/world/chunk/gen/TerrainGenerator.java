@@ -25,7 +25,7 @@ public class TerrainGenerator implements WorldGenerator {
             if (finalY - j <= 3) {
                 float dirtFreq = 1.0f / Chunk.CHUNK_SIZE;
                 float dirtVal = Math.abs(noise.generate(x * dirtFreq, y * dirtFreq, 2, .5f, 1f));
-                if (dirtVal > .3f)
+                if (dirtVal > .2f)
                     chunk.setBlock(x, j, BlockType.DIRT);
                 else chunk.setBlock(x, j, BlockType.STONE);
             }

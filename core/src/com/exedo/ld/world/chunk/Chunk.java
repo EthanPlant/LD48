@@ -9,7 +9,7 @@ import com.exedo.ld.world.block.BlockType;
 // Holds data for a chunk
 
 public class Chunk {
-    public static int CHUNK_SIZE = 25;
+    public static int CHUNK_SIZE = 50;
     private BlockType[][] blocks = new BlockType[CHUNK_SIZE][CHUNK_SIZE];
 
     // Coordinates of this chunk

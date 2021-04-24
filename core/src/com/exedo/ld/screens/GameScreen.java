@@ -27,7 +27,7 @@ public class GameScreen implements Screen {
         this.game = game;
         cam = new OrthographicCamera();
         port = new FitViewport(LudumDare.V_WIDTH, LudumDare.V_HEIGHT, cam);
-        cam.position.set(625 * ChunkManager.TILE_SIZE, 490 * ChunkManager.TILE_SIZE, 0);
+        cam.position.set(1250 * ChunkManager.TILE_SIZE, 975 * ChunkManager.TILE_SIZE, 0);
         world = new World();
     }
 

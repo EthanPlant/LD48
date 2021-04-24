@@ -14,7 +14,7 @@ import java.util.Random;
 public class ChunkManager {
     public static int TILE_SIZE = 16; // Size of a block
 
-    // World size of 50x20 chunks (800x320 blocks)
+    // World size of 50x20 chunks (2500x1000 blocks)
     private static int CHUNKS_X = 50;
     private static int CHUNKS_Y = 20;
 
