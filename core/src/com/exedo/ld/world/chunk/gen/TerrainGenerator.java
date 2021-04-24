@@ -33,12 +33,14 @@ public class TerrainGenerator implements WorldGenerator {
 
         // Set blocks
         chunk.setBlock(x, finalY, BlockType.GRASS);
+        chunk.setWall(x, finalY, BlockType.DIRT_WALL);
 
         // Water check
         if (finalY < WATER_LEVEL) {
             chunk.setBlock(x, finalY, BlockType.DIRT);
             for(int j = finalY; j <= WATER_LEVEL; j++){
                 chunk.setBlock(x, j, BlockType.WATER);
+                chunk.setWall(x, j, BlockType.DIRT_WALL);
             }
         }
 
@@ -75,9 +77,14 @@ public class TerrainGenerator implements WorldGenerator {
             if (finalY - j <= 3) {
                 float dirtFreq = 1.0f / Chunk.CHUNK_SIZE;
                 float dirtVal = Math.abs(noise.generate(x * dirtFreq, j * dirtFreq, 2, .5f, 1f));
-                if (dirtVal > .2f)
+                if (dirtVal > .2f) {
                     chunk.setBlock(x, j, BlockType.DIRT);
-                else chunk.setBlock(x, j, BlockType.STONE);
+                    chunk.setWall(x, j, BlockType.DIRT_WALL);
+                }
+                else {
+                    chunk.setBlock(x, j, BlockType.STONE);
+                    chunk.setWall(x, j, BlockType.DIRT_WALL);
+                }
             }
             else
                 oreGenerator.generate(noise, chunk, x, j);

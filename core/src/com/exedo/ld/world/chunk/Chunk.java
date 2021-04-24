@@ -11,6 +11,7 @@ import com.exedo.ld.world.block.BlockType;
 public class Chunk {
     public static int CHUNK_SIZE = 50;
     private BlockType[][] blocks = new BlockType[CHUNK_SIZE][CHUNK_SIZE];
+    private BlockType[][] walls = new BlockType[CHUNK_SIZE][CHUNK_SIZE];
 
     // Coordinates of this chunk
     private int startX, startY;
@@ -23,6 +24,7 @@ public class Chunk {
         for(int i = 0; i < CHUNK_SIZE; i++) {
             for (int j = 0; j < 16; j++) {
                 blocks[i][j] = BlockType.AIR;
+                walls[i][j] = BlockType.AIR;
             }
         }
     }
@@ -34,12 +36,18 @@ public class Chunk {
                 float tx = x * ChunkManager.TILE_SIZE + (getX() * CHUNK_SIZE * ChunkManager.TILE_SIZE);
                 float ty = y * ChunkManager.TILE_SIZE + (getY() * CHUNK_SIZE * ChunkManager.TILE_SIZE);
                 // Only render tiles on screen to save performance
-                if (Utils.isOnScreen(cam.position.x, cam.position.y, tx, ty, 16)) {
+                if (Utils.isOnScreen(cam.position.x, cam.position.y, tx, ty, ChunkManager.TILE_SIZE)) {
                     // Grab block to render
-                    BlockType type = blocks[x][y];
-                    // Only render opaque blocks
+                    BlockType type = getBlock(x, y);
+                    // Only draw its wall if a block has transparency
+                    if (type == null || type == BlockType.AIR || BlockManager.getBlock(type).getMaterial().isTransparent()) {
+                        BlockType wallType = getWall(x, y);
+                        if (wallType != null && wallType != BlockType.AIR)
+                            sb.draw(BlockManager.getBlock(wallType).getBlockTexture(), tx, ty);
+                    }
+                    // Draw block
                     if (type != null && type != BlockType.AIR)
-                        sb.draw(BlockManager.getBlock(blocks[x][y]).getBlockTexture(), tx, ty); // 16 pixels per block
+                        sb.draw(BlockManager.getBlock(type).getBlockTexture(), tx, ty);
                 }
             }
         }
@@ -53,9 +61,29 @@ public class Chunk {
         return startY;
     }
 
+    public BlockType getBlock(int x, int y) {
+        if (x >= 0 && y >= 0 && x < CHUNK_SIZE && y < CHUNK_SIZE) {
+            return blocks[x][y];
+        }
+        return BlockType.AIR;
+    }
+
+    public BlockType getWall(int x, int y) {
+        if (x >= 0 && y >= 0 && x < CHUNK_SIZE && y < CHUNK_SIZE) {
+            return walls[x][y];
+        }
+        return BlockType.AIR;
+    }
+
     public void setBlock(int x, int y, BlockType type) {
         if (x >= 0 && y >= 0 && x < CHUNK_SIZE && y < CHUNK_SIZE) {
             blocks[x][y] = type;
+        }
+    }
+
+    public void setWall(int x, int y, BlockType type) {
+        if (x >= 0 && y >= 0 && x < CHUNK_SIZE && y < CHUNK_SIZE) {
+            walls[x][y] = type;
         }
     }
 }

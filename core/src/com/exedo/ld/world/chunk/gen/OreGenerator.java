@@ -43,16 +43,21 @@ public class OreGenerator implements WorldGenerator {
                 if (ore > 0.9) chunk.setBlock(x, y, BlockType.DIAMOND);
                 else if (ore > 0.5) chunk.setBlock(x, y, BlockType.COPPER);
                 else chunk.setBlock(x, y, BlockType.COAL);
+                chunk.setWall(x, y, BlockType.STONE_WALL);
             } else {
                 // Attempt to spawn some dirt
                 float dirtFreq = 1.0f / (Chunk.CHUNK_SIZE);
                 float dirtVal = noise.generate(x * dirtFreq, y * dirtFreq, 2, .5f, 1f);
                 if (dirtVal > .3f) {
                     chunk.setBlock(x, y, BlockType.DIRT);
-                } else chunk.setBlock(x, y, BlockType.STONE);
+                    chunk.setWall(x, y, BlockType.DIRT);
+                } else {
+                    chunk.setBlock(x, y, BlockType.STONE);
+                    chunk.setWall(x, y, BlockType.STONE_WALL);
+                }
             }
         } else {
-            chunk.setBlock(x, y, BlockType.STONE_WALL);
+            chunk.setWall(x, y, BlockType.STONE_WALL);
         }
     }
 }
