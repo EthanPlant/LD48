@@ -5,24 +5,23 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.exedo.ld.LudumDare;
+import com.exedo.ld.world.block.BlockManager;
+import com.exedo.ld.world.block.BlockType;
 
-public class TitleScreen implements Screen {
+public class GameScreen implements Screen {
     private LudumDare game;
 
-    private Viewport port;
     private OrthographicCamera cam;
+    private Viewport port;
 
-    public TitleScreen(LudumDare game) {
+    public GameScreen(LudumDare game) {
         this.game = game;
-
         cam = new OrthographicCamera();
-        port = new StretchViewport(160, 120, cam);
-        cam.position.set(port.getWorldWidth() / 2, port.getWorldHeight() / 2, 0);
+        port = new FitViewport(LudumDare.V_WIDTH, LudumDare.V_HEIGHT, cam);
     }
 
     @Override
@@ -32,14 +31,22 @@ public class TitleScreen implements Screen {
 
     @Override
     public void render(float delta) {
-        if (Gdx.input.isKeyPressed(Input.Keys.ENTER)) game.setScreen(new GameScreen(game));
-
+        if (Gdx.input.isKeyPressed(Input.Keys.LEFT)) cam.position.set(cam.position.x - 10, cam.position.y, 0);
+        if (Gdx.input.isKeyPressed(Input.Keys.RIGHT)) cam.position.set(cam.position.x + 10, cam.position.y, 0);
+        if (Gdx.input.isKeyPressed(Input.Keys.UP)) cam.position.set(cam.position.x, cam.position.y + 10, 0);
+        if (Gdx.input.isKeyPressed(Input.Keys.DOWN)) cam.position.set(cam.position.x + 10, cam.position.y - 10, 0);
+        cam.update();
         Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
         game.getBatch().setProjectionMatrix(cam.combined);
         game.getBatch().begin();
-        game.getBatch().draw(LudumDare.assets.get("titlescreen.png", Texture.class), 0, 0, port.getWorldWidth(), port.getWorldHeight());
+        for (int i = (int)-port.getWorldWidth() / 2; i < port.getWorldWidth() / 2; i += 16) {
+            for (int j = (int) -port.getWorldHeight() / 2; j < port.getWorldHeight() / 2; j+= 16) {
+                game.getBatch().draw(BlockManager.getBlock(BlockType.STONE).getBlockTexture(), i, j);
+            }
+        }
+
         game.getBatch().end();
     }
 
@@ -65,6 +72,6 @@ public class TitleScreen implements Screen {
 
     @Override
     public void dispose() {
-        LudumDare.assets.unload("titlescreen.png");
+
     }
 }
