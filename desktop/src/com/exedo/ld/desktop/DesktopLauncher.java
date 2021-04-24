@@ -9,6 +9,7 @@ public class DesktopLauncher {
 		LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
 		config.width = 640 * 2;
 		config.height = 360 * 2;
+		config.forceExit = false;
 		new LwjglApplication(new LudumDare(), config);
 	}
 }
