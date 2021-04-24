@@ -32,7 +32,7 @@ public class OreGenerator implements WorldGenerator {
         float caveFreq = 1.0f / (Chunk.CHUNK_SIZE / 3.85f);
         float caveVal = noise.generate(totalX * caveFreq, totalY * caveFreq, 6, .25f, 1f);
 
-        if (caveVal <= .35f) {
+        if (caveVal < -0.3f || caveVal > 0.3f) {
             chunk.setBlock(x, y, BlockType.STONE);
             // Attempt to spawn some ores
             float oreFreq = 1 / (Chunk.CHUNK_SIZE / 3.5f);
