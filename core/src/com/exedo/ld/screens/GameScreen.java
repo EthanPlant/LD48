@@ -9,6 +9,7 @@ import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.exedo.ld.LudumDare;
+import com.exedo.ld.ui.GameHud;
 import com.exedo.ld.world.World;
 import com.exedo.ld.world.block.BlockManager;
 import com.exedo.ld.world.block.BlockType;
@@ -22,6 +23,7 @@ public class GameScreen implements Screen {
     private Viewport port;
 
     private World world;
+    private GameHud hud;
 
     public GameScreen(LudumDare game) {
         this.game = game;
@@ -29,6 +31,7 @@ public class GameScreen implements Screen {
         port = new FitViewport(LudumDare.V_WIDTH, LudumDare.V_HEIGHT, cam);
         cam.position.set(1250 * ChunkManager.TILE_SIZE, 975 * ChunkManager.TILE_SIZE, 0);
         world = new World();
+        hud = new GameHud(this, world);
     }
 
     @Override
@@ -43,14 +46,18 @@ public class GameScreen implements Screen {
         if (Gdx.input.isKeyPressed(Input.Keys.UP)) cam.position.set(cam.position.x, cam.position.y + 10, 0);
         if (Gdx.input.isKeyPressed(Input.Keys.DOWN)) cam.position.set(cam.position.x, cam.position.y - 10, 0);
         cam.update();
+        hud.update(cam);
         world.update(cam.position.x, cam.position.y);
         Gdx.gl.glClearColor(4.0f / 255.0f, 132.0f / 255.0f, 209.0f / 255.0f, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+
 
         game.getBatch().setProjectionMatrix(cam.combined);
         game.getBatch().begin();
         world.render(game.getBatch(), cam);
         game.getBatch().end();
+
+        hud.render(cam);
     }
 
     @Override

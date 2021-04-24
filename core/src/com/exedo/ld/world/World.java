@@ -22,4 +22,8 @@ public class World {
     public void render(SpriteBatch batch, OrthographicCamera cam) {
         chunkManager.renderChunks(batch, cam);
     }
+
+    public ChunkManager getChunkManager() {
+        return chunkManager;
+    }
 }

@@ -3,6 +3,7 @@ package com.exedo.ld;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.exedo.ld.screens.TitleScreen;
@@ -26,6 +27,7 @@ public class LudumDare extends Game {
 	private void loadAssets() {
 		assets.load("titlescreen.png", Texture.class);
 		assets.load("blocks.atlas", TextureAtlas.class);
+		assets.load("ui_font.fnt", BitmapFont.class);
 		assets.finishLoading();
 	}
 

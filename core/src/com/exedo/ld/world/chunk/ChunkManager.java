@@ -119,4 +119,8 @@ public class ChunkManager {
         // Convert to chunk coords and grab chunk
         return getChunk(tx / Chunk.CHUNK_SIZE, ty / Chunk.CHUNK_SIZE);
     }
+
+    public Chunk[][] getLoadedChunks() {
+        return nearbyChunks;
+    }
 }
