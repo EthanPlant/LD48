@@ -20,9 +20,17 @@ public class TerrainGenerator implements WorldGenerator {
         int finalY = (int) (i * (Chunk.CHUNK_SIZE / 2)) + (Chunk.CHUNK_SIZE / 2) - 1;
 
         // Set blocks
-        chunk.setBlock(x, finalY, BlockType.STONE);
+        chunk.setBlock(x, finalY, BlockType.GRASS);
         for (int j = 0; j < finalY; j++) {
-            chunk.setBlock(x, j, BlockType.STONE);
+            if (finalY - j <= 3) {
+                float dirtFreq = 1.0f / Chunk.CHUNK_SIZE;
+                float dirtVal = Math.abs(noise.generate(x * dirtFreq, y * dirtFreq, 2, .5f, 1f));
+                if (dirtVal > .3f)
+                    chunk.setBlock(x, j, BlockType.DIRT);
+                else chunk.setBlock(x, j, BlockType.STONE);
+            }
+            else
+                chunk.setBlock(x, j, BlockType.STONE);
         }
     }
 }

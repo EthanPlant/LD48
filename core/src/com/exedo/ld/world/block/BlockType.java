@@ -1,7 +1,7 @@
 package com.exedo.ld.world.block;
 
 public enum BlockType {
-    AIR(0), STONE(1);
+    AIR(0), STONE(1), DIRT(2), GRASS(3);
 
     private static final BlockType[] blockTypeArray = values();
     private final int id;

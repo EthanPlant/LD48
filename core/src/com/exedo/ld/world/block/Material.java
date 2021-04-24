@@ -3,7 +3,7 @@ package com.exedo.ld.world.block;
 // Various material data
 
 public enum Material {
-    AIR(false), STONE(true);
+    AIR(true), STONE(false), DIRT(false);
 
     private final boolean transparent;
 
