@@ -9,7 +9,8 @@ public enum Material {
     WALL(false),
     WOOD(false),
     LEAF(true),
-    PLANT(true);
+    PLANT(true),
+    LIQUID(true);
 
     private final boolean transparent;
 

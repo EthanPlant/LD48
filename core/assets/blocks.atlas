@@ -6,7 +6,7 @@ filter: Nearest, Nearest
 repeat: none
 bush
   rotate: false
-  xy: 144, 0
+  xy: 160, 0
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
@@ -27,7 +27,7 @@ copper
   index: -1
 dandelion
   rotate: false
-  xy: 112, 0
+  xy: 128, 0
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
@@ -62,14 +62,14 @@ leaf
   index: -1
 log
   rotate: false
-  xy: 128, 0
+  xy: 144, 0
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
   index: -1
 rose
   rotate: false
-  xy: 160, 0
+  xy: 176, 0
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
@@ -83,7 +83,14 @@ stone
   index: -1
 stone-wall
   rotate: false
-  xy: 176, 0
+  xy: 192, 0
+  size: 16, 16
+  orig: 16, 16
+  offset: 0, 0
+  index: -1
+water
+  rotate: false
+  xy: 112, 0
   size: 16, 16
   orig: 16, 16
   offset: 0, 0

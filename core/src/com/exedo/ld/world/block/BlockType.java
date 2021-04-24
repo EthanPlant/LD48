@@ -13,7 +13,8 @@ public enum BlockType {
     LEAF(9),
     ROSE(10),
     DANDELION(11),
-    BUSH(12);
+    BUSH(12),
+    WATER(13);
 
     private static final BlockType[] blockTypeArray = values();
     private final int id;

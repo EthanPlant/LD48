@@ -25,6 +25,7 @@ public class BlockManager {
         blocks.put(BlockType.ROSE, new Block((BlockType.ROSE), LudumDare.assets.get("blocks.atlas", TextureAtlas.class).findRegion("rose"), Material.PLANT));
         blocks.put(BlockType.DANDELION, new Block((BlockType.DANDELION), LudumDare.assets.get("blocks.atlas", TextureAtlas.class).findRegion("dandelion"), Material.PLANT));
         blocks.put(BlockType.BUSH, new Block((BlockType.BUSH), LudumDare.assets.get("blocks.atlas", TextureAtlas.class).findRegion("bush"), Material.PLANT));
+        blocks.put(BlockType.WATER, new Block((BlockType.WATER), LudumDare.assets.get("blocks.atlas", TextureAtlas.class).findRegion("water"), Material.LIQUID));
     }
 
     public static Block getBlock(BlockType type) {
