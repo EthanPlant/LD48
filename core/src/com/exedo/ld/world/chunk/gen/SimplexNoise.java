@@ -32,7 +32,7 @@ public class SimplexNoise {
 
     // This is significantly faster than using the built in floor function
     private static int floor(float x) {
-        return x > 0 ? (int) x : (int) x - 1;
+        return x > 0 ? (int)x : (int)x - 1;
     }
 
     // Calculates dot product of a point and a gradient
@@ -56,9 +56,9 @@ public class SimplexNoise {
         // Unskew the cell origin
         final float t = (i + j) * G2;
         final float X0 = i - t;
-        final float Y0 = j-t;
+        final float Y0 = j - t;
         final float x0 = x - X0;
-        final float y0 = x - Y0;
+        final float y0 = y - Y0;
 
         // Determine which simplex we're in
         int i1, j1;
@@ -75,7 +75,7 @@ public class SimplexNoise {
         float x1 = x0 - i1 + G2;
         float y1 = y0 - j1 + G2;
         float x2 = x0 - 1.0f + 2.0f * G2;
-        float y2 = y0 - 1.0F + 2.0f * G2;
+        float y2 = y0 - 1.0f + 2.0f * G2;
 
         int ii = i & 255;
         int jj = j & 255;

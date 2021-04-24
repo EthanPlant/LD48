@@ -3,7 +3,15 @@ package com.exedo.ld.world.chunk.gen;
 import com.exedo.ld.world.block.BlockType;
 import com.exedo.ld.world.chunk.Chunk;
 
+// Generates terrain on the top layer of chunks
+
 public class TerrainGenerator implements WorldGenerator {
+    private OreGenerator oreGenerator;
+
+    public TerrainGenerator(OreGenerator oreGenerator) {
+        this.oreGenerator = oreGenerator;
+    }
+
     @Override
     public void generate(SimplexNoise noise, Chunk chunk) {
         for (int x = 0; x < Chunk.CHUNK_SIZE; x++) {
@@ -30,7 +38,7 @@ public class TerrainGenerator implements WorldGenerator {
                 else chunk.setBlock(x, j, BlockType.STONE);
             }
             else
-                chunk.setBlock(x, j, BlockType.STONE);
+                oreGenerator.generate(noise, chunk, x, j);
         }
     }
 }

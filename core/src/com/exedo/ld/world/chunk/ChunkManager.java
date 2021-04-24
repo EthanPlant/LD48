@@ -4,12 +4,11 @@ package com.exedo.ld.world.chunk;
 
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.exedo.ld.world.block.BlockType;
+import com.exedo.ld.world.World;
+import com.exedo.ld.world.chunk.gen.OreGenerator;
 import com.exedo.ld.world.chunk.gen.SimplexNoise;
 import com.exedo.ld.world.chunk.gen.TerrainGenerator;
 
-import java.util.Date;
-import java.util.Random;
 
 public class ChunkManager {
     public static int TILE_SIZE = 16; // Size of a block
@@ -22,28 +21,25 @@ public class ChunkManager {
     private Chunk[][] nearbyChunks = new Chunk[5][5]; // Stores a 5x5 grid of chunks around the player to render
 
     private SimplexNoise noise = new SimplexNoise();
-    private static final TerrainGenerator terrainGenerator = new TerrainGenerator();
+    private static final OreGenerator oreGenerator = new OreGenerator();
+    private static final TerrainGenerator terrainGenerator = new TerrainGenerator(oreGenerator);
 
     public ChunkManager() {
-        noise.genGrad(System.currentTimeMillis());
+        noise.genGrad(World.RANDOM_SEED);
         generateTerrain();
     }
 
     public void generateTerrain() {
         // Generate all of the chunks in the world
-        for (int x = 0; x < CHUNKS_X; x++) {
-            for (int y = 0; y < CHUNKS_Y; y++) {
+        for (int y = 0; y < CHUNKS_Y; y++) {
+            for (int x = 0; x < CHUNKS_X; x++) {
                 if (chunks[x][y] == null) { // Don't overwrite a chunk that already exists
                     chunks[x][y] = new Chunk(x, y);
                     // Generate chunks
                     if (y == CHUNKS_Y - 1) // Are we on the top layer of chunks?
                         terrainGenerator.generate(noise, chunks[x][y]);
                     else {
-                        for (int i = 0; i < Chunk.CHUNK_SIZE; i++) {
-                            for (int j = 0; j < Chunk.CHUNK_SIZE; j++) {
-                                chunks[x][y].setBlock(i, j, BlockType.STONE);
-                            }
-                        }
+                        oreGenerator.generate(noise, chunks[x][y]);
                     }
                 }
             }

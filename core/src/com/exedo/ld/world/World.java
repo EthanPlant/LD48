@@ -8,6 +8,7 @@ import com.exedo.ld.world.chunk.Chunk;
 import com.exedo.ld.world.chunk.ChunkManager;
 
 public class World {
+    public final static long RANDOM_SEED = System.currentTimeMillis();
     private ChunkManager chunkManager;
 
     public World() {

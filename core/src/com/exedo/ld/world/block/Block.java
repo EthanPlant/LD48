@@ -26,4 +26,8 @@ public class Block {
     public Material getMaterial() {
         return material;
     }
+
+    public boolean isWall() {
+        return false;
+    }
 }
