@@ -5,7 +5,10 @@ package com.exedo.ld.world.chunk;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.exedo.ld.world.block.BlockType;
+import com.exedo.ld.world.chunk.gen.SimplexNoise;
+import com.exedo.ld.world.chunk.gen.TerrainGenerator;
 
+import java.util.Date;
 import java.util.Random;
 
 public class ChunkManager {
@@ -18,10 +21,11 @@ public class ChunkManager {
     private Chunk[][] chunks = new Chunk[CHUNKS_X][CHUNKS_Y];
     private Chunk[][] nearbyChunks = new Chunk[5][5]; // Stores a 5x5 grid of chunks around the player to render
 
-    private Random random;
+    private SimplexNoise noise = new SimplexNoise();
+    private static final TerrainGenerator terrainGenerator = new TerrainGenerator();
 
     public ChunkManager() {
-        random = new Random();
+        noise.genGrad(System.currentTimeMillis());
         generateTerrain();
     }
 
@@ -31,10 +35,14 @@ public class ChunkManager {
             for (int y = 0; y < CHUNKS_Y; y++) {
                 if (chunks[x][y] == null) { // Don't overwrite a chunk that already exists
                     chunks[x][y] = new Chunk(x, y);
-                    // "Random generation"
-                    for (int i = 0; i < 16; i++) {
-                        for (int j = 0; j < 16; j++) {
-                            if (random.nextBoolean()) chunks[x][y].setBlock(i, j, BlockType.STONE);
+                    // Generate chunks
+                    if (y == CHUNKS_Y - 1) // Are we on the top layer of chunks?
+                        terrainGenerator.generate(noise, chunks[x][y]);
+                    else {
+                        for (int i = 0; i < Chunk.CHUNK_SIZE; i++) {
+                            for (int j = 0; j < Chunk.CHUNK_SIZE; j++) {
+                                chunks[x][y].setBlock(i, j, BlockType.STONE);
+                            }
                         }
                     }
                 }
