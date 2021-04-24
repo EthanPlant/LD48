@@ -9,6 +9,7 @@ import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.exedo.ld.LudumDare;
+import com.exedo.ld.world.World;
 import com.exedo.ld.world.block.BlockManager;
 import com.exedo.ld.world.block.BlockType;
 
@@ -18,10 +19,14 @@ public class GameScreen implements Screen {
     private OrthographicCamera cam;
     private Viewport port;
 
+    private World world;
+
     public GameScreen(LudumDare game) {
         this.game = game;
         cam = new OrthographicCamera();
         port = new FitViewport(LudumDare.V_WIDTH, LudumDare.V_HEIGHT, cam);
+
+        world = new World();
     }
 
     @Override
@@ -41,12 +46,7 @@ public class GameScreen implements Screen {
 
         game.getBatch().setProjectionMatrix(cam.combined);
         game.getBatch().begin();
-        for (int i = (int)-port.getWorldWidth() / 2; i < port.getWorldWidth() / 2; i += 16) {
-            for (int j = (int) -port.getWorldHeight() / 2; j < port.getWorldHeight() / 2; j+= 16) {
-                game.getBatch().draw(BlockManager.getBlock(BlockType.STONE).getBlockTexture(), i, j);
-            }
-        }
-
+        world.render(game.getBatch());
         game.getBatch().end();
     }
 
