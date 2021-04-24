@@ -8,7 +8,12 @@ public enum BlockType {
     COAL(4),
     COPPER(5),
     DIAMOND(6),
-    STONE_WALL(7);
+    STONE_WALL(7),
+    LOG(8),
+    LEAF(9),
+    ROSE(10),
+    DANDELION(11),
+    BUSH(12);
 
     private static final BlockType[] blockTypeArray = values();
     private final int id;

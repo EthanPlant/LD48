@@ -1,19 +1,33 @@
 
 blocks.png
-size: 128, 16
+size: 256, 16
 format: RGBA8888
 filter: Nearest, Nearest
 repeat: none
+bush
+  rotate: false
+  xy: 144, 0
+  size: 16, 16
+  orig: 16, 16
+  offset: 0, 0
+  index: -1
 coal
   rotate: false
-  xy: 80, 0
+  xy: 96, 0
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
   index: -1
 copper
   rotate: false
-  xy: 64, 0
+  xy: 80, 0
+  size: 16, 16
+  orig: 16, 16
+  offset: 0, 0
+  index: -1
+dandelion
+  rotate: false
+  xy: 112, 0
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
@@ -27,14 +41,35 @@ diamond
   index: -1
 dirt
   rotate: false
-  xy: 48, 0
+  xy: 64, 0
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
   index: -1
 grass
   rotate: false
+  xy: 48, 0
+  size: 16, 16
+  orig: 16, 16
+  offset: 0, 0
+  index: -1
+leaf
+  rotate: false
   xy: 32, 0
+  size: 16, 16
+  orig: 16, 16
+  offset: 0, 0
+  index: -1
+log
+  rotate: false
+  xy: 128, 0
+  size: 16, 16
+  orig: 16, 16
+  offset: 0, 0
+  index: -1
+rose
+  rotate: false
+  xy: 160, 0
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
@@ -48,7 +83,7 @@ stone
   index: -1
 stone-wall
   rotate: false
-  xy: 96, 0
+  xy: 176, 0
   size: 16, 16
   orig: 16, 16
   offset: 0, 0

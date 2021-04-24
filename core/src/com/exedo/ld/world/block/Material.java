@@ -6,7 +6,10 @@ public enum Material {
     AIR(true),
     STONE(false),
     DIRT(false),
-    WALL(false);
+    WALL(false),
+    WOOD(false),
+    LEAF(true),
+    PLANT(true);
 
     private final boolean transparent;
 

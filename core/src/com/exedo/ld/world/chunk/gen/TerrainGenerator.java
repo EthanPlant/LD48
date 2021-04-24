@@ -1,5 +1,6 @@
 package com.exedo.ld.world.chunk.gen;
 
+import com.exedo.ld.Utils;
 import com.exedo.ld.world.block.BlockType;
 import com.exedo.ld.world.chunk.Chunk;
 
@@ -7,6 +8,7 @@ import com.exedo.ld.world.chunk.Chunk;
 
 public class TerrainGenerator implements WorldGenerator {
     private OreGenerator oreGenerator;
+
 
     public TerrainGenerator(OreGenerator oreGenerator) {
         this.oreGenerator = oreGenerator;
@@ -29,6 +31,33 @@ public class TerrainGenerator implements WorldGenerator {
 
         // Set blocks
         chunk.setBlock(x, finalY, BlockType.GRASS);
+
+        // Determine whether to draw a tree
+        float treeFreq = 1.0f / Chunk.CHUNK_SIZE;
+        float treeValLast = Math.abs(noise.generate((totalX - 1) * treeFreq, (totalX - 1) * treeFreq, 3, .75f, 1f));
+        float treeVal = Math.abs(noise.generate((totalX) * treeFreq, (totalX) * treeFreq, 3, .75f, 1f));
+        float treeValNext = Math.abs(noise.generate((totalX + 1) * treeFreq, (totalX + 1) * treeFreq, 3, .75f, 1f));
+
+        if (Utils.getRandomNumber(1, 10) == 1) {
+            int plantToSpawn = Utils.getRandomNumber(1, 3);
+            switch (plantToSpawn) {
+                case 1:
+                    chunk.setBlock(x, finalY + 1, BlockType.ROSE);
+                    break;
+                case 2:
+                    chunk.setBlock(x, finalY + 1, BlockType.DANDELION);
+                    break;
+                case 3:
+                    chunk.setBlock(x, finalY + 1, BlockType.BUSH);
+                    break;
+            }
+        }
+
+        if (treeVal > treeValLast && treeVal > treeValNext) { // Peak, spawn tree
+            int treeY = finalY + 1;
+            TreeGenerator.generateTree(chunk, x, treeY);
+        }
+
         for (int j = 0; j < finalY; j++) {
             if (finalY - j <= 3) {
                 float dirtFreq = 1.0f / Chunk.CHUNK_SIZE;

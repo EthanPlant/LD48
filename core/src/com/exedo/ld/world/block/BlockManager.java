@@ -20,7 +20,11 @@ public class BlockManager {
         blocks.put(BlockType.COPPER, new Block((BlockType.COPPER), LudumDare.assets.get("blocks.atlas", TextureAtlas.class).findRegion("copper"), Material.STONE));
         blocks.put(BlockType.DIAMOND, new Block((BlockType.DIAMOND), LudumDare.assets.get("blocks.atlas", TextureAtlas.class).findRegion("diamond"), Material.STONE));
         blocks.put(BlockType.STONE_WALL, new Wall((BlockType.STONE_WALL), LudumDare.assets.get("blocks.atlas", TextureAtlas.class).findRegion("stone-wall")));
-
+        blocks.put(BlockType.LOG, new Block((BlockType.LOG), LudumDare.assets.get("blocks.atlas", TextureAtlas.class).findRegion("log"), Material.WOOD));
+        blocks.put(BlockType.LEAF, new Block((BlockType.LEAF), LudumDare.assets.get("blocks.atlas", TextureAtlas.class).findRegion("leaf"), Material.LEAF));
+        blocks.put(BlockType.ROSE, new Block((BlockType.ROSE), LudumDare.assets.get("blocks.atlas", TextureAtlas.class).findRegion("rose"), Material.PLANT));
+        blocks.put(BlockType.DANDELION, new Block((BlockType.DANDELION), LudumDare.assets.get("blocks.atlas", TextureAtlas.class).findRegion("dandelion"), Material.PLANT));
+        blocks.put(BlockType.BUSH, new Block((BlockType.BUSH), LudumDare.assets.get("blocks.atlas", TextureAtlas.class).findRegion("bush"), Material.PLANT));
     }
 
     public static Block getBlock(BlockType type) {
