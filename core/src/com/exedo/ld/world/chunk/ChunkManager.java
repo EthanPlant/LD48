@@ -4,6 +4,9 @@ package com.exedo.ld.world.chunk;
 
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.exedo.ld.world.block.BlockType;
+
+import java.util.Random;
 
 public class ChunkManager {
     public static int TILE_SIZE = 16; // Size of a block
@@ -15,7 +18,10 @@ public class ChunkManager {
     private Chunk[][] chunks = new Chunk[CHUNKS_X][CHUNKS_Y];
     private Chunk[][] nearbyChunks = new Chunk[5][5]; // Stores a 5x5 grid of chunks around the player to render
 
+    private Random random;
+
     public ChunkManager() {
+        random = new Random();
         generateTerrain();
     }
 
@@ -25,7 +31,12 @@ public class ChunkManager {
             for (int y = 0; y < CHUNKS_Y; y++) {
                 if (chunks[x][y] == null) { // Don't overwrite a chunk that already exists
                     chunks[x][y] = new Chunk(x, y);
-                    // TODO Random generation
+                    // "Random generation"
+                    for (int i = 0; i < 16; i++) {
+                        for (int j = 0; j < 16; j++) {
+                            if (random.nextBoolean()) chunks[x][y].setBlock(i, j, BlockType.STONE);
+                        }
+                    }
                 }
             }
         }

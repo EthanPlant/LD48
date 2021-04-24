@@ -19,10 +19,10 @@ public class Chunk {
         this.startX = startX;
         this.startY = startY;
 
-        // Just fill all chunks with stone for now
+        // Just fill all chunks with air by default
         for(int i = 0; i < CHUNK_SIZE; i++) {
             for (int j = 0; j < 16; j++) {
-                blocks[i][j] = BlockType.STONE;
+                blocks[i][j] = BlockType.AIR;
             }
         }
     }
@@ -51,5 +51,11 @@ public class Chunk {
 
     public int getY() {
         return startY;
+    }
+
+    public void setBlock(int x, int y, BlockType type) {
+        if (x >= 0 && y >= 0 && x < CHUNK_SIZE && y < CHUNK_SIZE) {
+            blocks[x][y] = type;
+        }
     }
 }

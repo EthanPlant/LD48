@@ -41,7 +41,7 @@ public class GameScreen implements Screen {
         if (Gdx.input.isKeyPressed(Input.Keys.LEFT)) cam.position.set(cam.position.x - 10, cam.position.y, 0);
         if (Gdx.input.isKeyPressed(Input.Keys.RIGHT)) cam.position.set(cam.position.x + 10, cam.position.y, 0);
         if (Gdx.input.isKeyPressed(Input.Keys.UP)) cam.position.set(cam.position.x, cam.position.y + 10, 0);
-        if (Gdx.input.isKeyPressed(Input.Keys.DOWN)) cam.position.set(cam.position.x + 10, cam.position.y - 10, 0);
+        if (Gdx.input.isKeyPressed(Input.Keys.DOWN)) cam.position.set(cam.position.x, cam.position.y - 10, 0);
         cam.update();
         world.update(cam.position.x, cam.position.y);
         Gdx.gl.glClearColor(0, 0, 0, 1);
