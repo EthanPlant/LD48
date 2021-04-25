@@ -1,5 +1,6 @@
 package com.exedo.ld.world.entity;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Rectangle;
@@ -18,8 +19,13 @@ public abstract class Entity {
         boundingBox = new Rectangle(x, y, ChunkManager.TILE_SIZE, ChunkManager.TILE_SIZE);
     }
 
-    public void drawBoundingBox(ShapeRenderer renderer) {
-        renderer.setColor(Color.BLACK);
+    public void update() {
+        velocity.add(acceleration.cpy().scl(Gdx.graphics.getDeltaTime()));
+        pos.add(velocity.cpy().scl(Gdx.graphics.getDeltaTime()));
+    }
+
+    public void drawBoundingBox(ShapeRenderer renderer, Color color) {
+        renderer.setColor(color);
         renderer.rect(boundingBox.x, boundingBox.y, boundingBox.width, boundingBox.height);
     }
 }

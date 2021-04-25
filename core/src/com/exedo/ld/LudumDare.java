@@ -28,6 +28,7 @@ public class LudumDare extends Game {
 		assets.load("titlescreen.png", Texture.class);
 		assets.load("blocks.atlas", TextureAtlas.class);
 		assets.load("ui_font.fnt", BitmapFont.class);
+		assets.load("player.png", Texture.class);
 		assets.finishLoading();
 	}
 
