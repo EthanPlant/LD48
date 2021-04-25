@@ -22,7 +22,7 @@ public class Chunk {
 
         // Just fill all chunks with air by default
         for(int i = 0; i < CHUNK_SIZE; i++) {
-            for (int j = 0; j < 16; j++) {
+            for (int j = 0; j < CHUNK_SIZE; j++) {
                 blocks[i][j] = BlockType.AIR;
                 walls[i][j] = BlockType.AIR;
             }

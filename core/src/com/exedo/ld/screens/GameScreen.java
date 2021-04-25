@@ -5,6 +5,7 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
@@ -25,6 +26,8 @@ public class GameScreen implements Screen {
     private World world;
     private GameHud hud;
 
+    private ShapeRenderer debugRenderer;
+
     public GameScreen(LudumDare game) {
         this.game = game;
         cam = new OrthographicCamera();
@@ -32,6 +35,7 @@ public class GameScreen implements Screen {
         cam.position.set(1250 * ChunkManager.TILE_SIZE, 975 * ChunkManager.TILE_SIZE, 0);
         world = new World();
         hud = new GameHud(this, world);
+        debugRenderer = new ShapeRenderer();
     }
 
     @Override
@@ -56,6 +60,11 @@ public class GameScreen implements Screen {
         game.getBatch().begin();
         world.render(game.getBatch(), cam);
         game.getBatch().end();
+
+        debugRenderer.setProjectionMatrix(cam.combined);
+        debugRenderer.begin(ShapeRenderer.ShapeType.Line);
+        world.debugRender(debugRenderer);
+        debugRenderer.end();
 
         hud.render(cam);
     }

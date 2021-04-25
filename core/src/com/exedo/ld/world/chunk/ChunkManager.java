@@ -5,6 +5,9 @@ package com.exedo.ld.world.chunk;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.exedo.ld.world.World;
+import com.exedo.ld.world.block.BlockEntity;
+import com.exedo.ld.world.block.BlockManager;
+import com.exedo.ld.world.block.Material;
 import com.exedo.ld.world.chunk.gen.OreGenerator;
 import com.exedo.ld.world.chunk.gen.SimplexNoise;
 import com.exedo.ld.world.chunk.gen.TerrainGenerator;
@@ -122,5 +125,16 @@ public class ChunkManager {
 
     public Chunk[][] getLoadedChunks() {
         return nearbyChunks;
+    }
+
+    public BlockEntity generateBlockEntity(float x, float y) {
+        Chunk c = getChunkFromPos(x, y);
+        int tx = (int)x / TILE_SIZE;
+        int ty = (int)y / TILE_SIZE;
+        if (c == null) return null;
+        int offset_x = c.getX() * Chunk.CHUNK_SIZE;
+        int offset_y = c.getY() * Chunk.CHUNK_SIZE;
+        Material m = BlockManager.getBlock(c.getBlock(tx - offset_x, ty-offset_y)).getMaterial();
+        return new BlockEntity(tx * TILE_SIZE, ty * TILE_SIZE, m);
     }
 }
