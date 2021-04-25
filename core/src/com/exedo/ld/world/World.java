@@ -21,7 +21,19 @@ public class World {
     public World() {
         chunkManager = new ChunkManager();
         blockEntities = new Array<>();
-        player = new Player(1250 * ChunkManager.TILE_SIZE , 975 * ChunkManager.TILE_SIZE);
+        spawnPlayer();
+    }
+
+    private void spawnPlayer() {
+        // Calculate player spawn position
+        float playerX = ((ChunkManager.CHUNKS_X / 2) * Chunk.CHUNK_SIZE) * ChunkManager.TILE_SIZE;
+        // Get highest Y value of the player spawn X
+        Chunk spawnChunk = chunkManager.getChunk((ChunkManager.CHUNKS_X / 2), ChunkManager.CHUNKS_Y - 1);
+        int playerTx = (int)playerX / ChunkManager.TILE_SIZE;
+        int highestY = spawnChunk.highestY[playerTx - (spawnChunk.getX() * Chunk.CHUNK_SIZE)];
+        float playerY = (highestY + (((ChunkManager.CHUNKS_Y - 1)) * Chunk.CHUNK_SIZE) + 1) * ChunkManager.TILE_SIZE;
+        System.out.println(playerX + ", " + playerY);
+        player = new Player(playerX, playerY);
     }
 
     public void update(float playerX, float playerY) {

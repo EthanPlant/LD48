@@ -40,5 +40,6 @@ public class TreeGenerator {
             chunk.setBlock(x + 1, y + stem - i, BlockType.LEAF);
         }
         chunk.setBlock(x, y + stem, BlockType.LEAF);
+        chunk.highestY[x] = y + stem;
     }
 }

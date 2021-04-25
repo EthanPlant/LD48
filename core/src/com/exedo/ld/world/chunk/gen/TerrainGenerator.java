@@ -30,6 +30,7 @@ public class TerrainGenerator implements WorldGenerator {
         float freq = 1.0f / (Chunk.CHUNK_SIZE * 1.25f);
         float i = noise.generate(totalX * freq, totalX * freq, 6, .25f, 1);
         int finalY = (int) (i * (Chunk.CHUNK_SIZE / 2)) + (Chunk.CHUNK_SIZE / 2) - 1;
+        chunk.highestY[x] = finalY;
 
         // Set blocks
         chunk.setBlock(x, finalY, BlockType.GRASS);

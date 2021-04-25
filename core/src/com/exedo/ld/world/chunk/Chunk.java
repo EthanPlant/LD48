@@ -12,6 +12,7 @@ public class Chunk {
     public static int CHUNK_SIZE = 50;
     private BlockType[][] blocks = new BlockType[CHUNK_SIZE][CHUNK_SIZE];
     private BlockType[][] walls = new BlockType[CHUNK_SIZE][CHUNK_SIZE];
+    public int[] highestY = new int[CHUNK_SIZE];
 
     // Coordinates of this chunk
     private int startX, startY;
@@ -26,6 +27,7 @@ public class Chunk {
                 blocks[i][j] = BlockType.AIR;
                 walls[i][j] = BlockType.AIR;
             }
+            highestY[i] = CHUNK_SIZE;
         }
     }
 

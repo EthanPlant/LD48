@@ -17,8 +17,8 @@ public class ChunkManager {
     public static int TILE_SIZE = 16; // Size of a block
 
     // World size of 50x20 chunks (2500x1000 blocks)
-    private static int CHUNKS_X = 50;
-    private static int CHUNKS_Y = 20;
+    public static final int CHUNKS_X = 50;
+    public static final int CHUNKS_Y = 20;
 
     private Chunk[][] chunks = new Chunk[CHUNKS_X][CHUNKS_Y];
     private Chunk[][] nearbyChunks = new Chunk[5][5]; // Stores a 5x5 grid of chunks around the player to render
