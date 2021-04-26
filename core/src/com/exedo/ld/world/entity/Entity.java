@@ -19,10 +19,24 @@ public abstract class Entity {
         boundingBox = new Rectangle(x, y, ChunkManager.TILE_SIZE, ChunkManager.TILE_SIZE);
     }
 
-    public void update() {
+    public abstract void update();
+
+    public void updateVelocity() {
         velocity.add(acceleration.cpy().scl(Gdx.graphics.getDeltaTime()));
+    }
+
+    public void updatePos() {
         pos.add(velocity.cpy().scl(Gdx.graphics.getDeltaTime()));
-        boundingBox.setPosition(boundingBox.getX() + velocity.cpy().scl(Gdx.graphics.getDeltaTime()).x, boundingBox.getY() + velocity.cpy().scl(Gdx.graphics.getDeltaTime()).y);
+        boundingBox.setPosition(new Vector2(boundingBox.getX() + velocity.cpy().scl(Gdx.graphics.getDeltaTime()).x,
+                boundingBox.getY() + velocity.cpy().scl(Gdx.graphics.getDeltaTime()).y));
+    }
+
+    public boolean isColliding(Entity other) {
+        return isColliding(other.boundingBox);
+    }
+
+    public boolean isColliding(Rectangle other) {
+        return boundingBox.overlaps(other);
     }
 
     public void drawBoundingBox(ShapeRenderer renderer, Color color) {
@@ -30,8 +44,17 @@ public abstract class Entity {
         renderer.rect(boundingBox.x, boundingBox.y, boundingBox.width, boundingBox.height);
     }
 
+    public Rectangle getBoundingBox() {
+        return boundingBox;
+    }
+
     public Vector2 getPos() {
         return pos;
+    }
+
+    public void setPos(Vector2 pos) {
+        this.pos = pos;
+        boundingBox.setPosition(pos);
     }
 
     public Vector2 getVelocity() {

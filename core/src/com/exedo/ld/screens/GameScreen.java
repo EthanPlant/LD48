@@ -97,10 +97,13 @@ public class GameScreen implements Screen, InputProcessor {
     @Override
     public boolean keyDown(int keycode) {
         if (keycode == Input.Keys.A) {
-            world.getPlayer().setVelocity(new Vector2(-10 * ChunkManager.TILE_SIZE, world.getPlayer().getVelocity().y));
+            world.getPlayer().setVelocity(new Vector2(-7 * ChunkManager.TILE_SIZE, world.getPlayer().getVelocity().y));
         }
         if (keycode == Input.Keys.D) {
-            world.getPlayer().setVelocity(new Vector2(10 * ChunkManager.TILE_SIZE, world.getPlayer().getVelocity().y));
+            world.getPlayer().setVelocity(new Vector2(7 * ChunkManager.TILE_SIZE, world.getPlayer().getVelocity().y));
+        }
+        if (keycode == Input.Keys.W) {
+            world.getPlayer().setVelocity(new Vector2(world.getPlayer().getVelocity().x, 5 * ChunkManager.TILE_SIZE));
         }
         return true;
     }

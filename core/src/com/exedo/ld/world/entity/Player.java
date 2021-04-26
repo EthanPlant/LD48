@@ -2,10 +2,13 @@ package com.exedo.ld.world.entity;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.Vector2;
 import com.exedo.ld.LudumDare;
 import com.exedo.ld.world.chunk.ChunkManager;
 
 public class Player extends Entity {
+
+
     private Texture texture;
     private boolean xFlip = false;
 
@@ -19,9 +22,14 @@ public class Player extends Entity {
 
     @Override
     public void update() {
-        super.update();
         if (velocity.x < 0) xFlip = true;
         else if (velocity.x > 0) xFlip = false;
+    }
+
+    @Override
+    public void setPos(Vector2 pos) {
+        super.setPos(pos);
+        boundingBox.setPosition(pos.x + 3, pos.y);
     }
 
     public void render(SpriteBatch batch) {
