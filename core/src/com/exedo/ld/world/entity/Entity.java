@@ -22,10 +22,23 @@ public abstract class Entity {
     public void update() {
         velocity.add(acceleration.cpy().scl(Gdx.graphics.getDeltaTime()));
         pos.add(velocity.cpy().scl(Gdx.graphics.getDeltaTime()));
+        boundingBox.setPosition(boundingBox.getX() + velocity.cpy().scl(Gdx.graphics.getDeltaTime()).x, boundingBox.getY() + velocity.cpy().scl(Gdx.graphics.getDeltaTime()).y);
     }
 
     public void drawBoundingBox(ShapeRenderer renderer, Color color) {
         renderer.setColor(color);
         renderer.rect(boundingBox.x, boundingBox.y, boundingBox.width, boundingBox.height);
+    }
+
+    public Vector2 getPos() {
+        return pos;
+    }
+
+    public Vector2 getVelocity() {
+        return velocity;
+    }
+
+    public void setVelocity(Vector2 velocity) {
+        this.velocity = velocity;
     }
 }

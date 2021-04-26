@@ -32,17 +32,16 @@ public class World {
         int playerTx = (int)playerX / ChunkManager.TILE_SIZE;
         int highestY = spawnChunk.highestY[playerTx - (spawnChunk.getX() * Chunk.CHUNK_SIZE)];
         float playerY = (highestY + (((ChunkManager.CHUNKS_Y - 1)) * Chunk.CHUNK_SIZE) + 1) * ChunkManager.TILE_SIZE;
-        System.out.println(playerX + ", " + playerY);
         player = new Player(playerX, playerY);
     }
 
-    public void update(float playerX, float playerY) {
+    public void update() {
         blockEntities.clear();
         player.update();
-        chunkManager.updateChunks(playerX, playerY);
+        chunkManager.updateChunks(player.getPos().x, player.getPos().y);
         for (int i = -ChunkManager.TILE_SIZE * 10; i < ChunkManager.TILE_SIZE * 10; i+= ChunkManager.TILE_SIZE) {
             for (int j = -ChunkManager.TILE_SIZE * 10; j < ChunkManager.TILE_SIZE * 10; j+= ChunkManager.TILE_SIZE) {
-                blockEntities.add(chunkManager.generateBlockEntity(playerX + i, playerY + j));
+                blockEntities.add(chunkManager.generateBlockEntity(player.getPos().x + i, player.getPos().y + j));
             }
         }
     }
@@ -62,5 +61,9 @@ public class World {
 
     public ChunkManager getChunkManager() {
         return chunkManager;
+    }
+
+    public Player getPlayer() {
+        return player;
     }
 }

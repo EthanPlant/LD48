@@ -2,10 +2,12 @@ package com.exedo.ld.screens;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
@@ -17,7 +19,7 @@ import com.exedo.ld.world.block.BlockType;
 import com.exedo.ld.world.chunk.Chunk;
 import com.exedo.ld.world.chunk.ChunkManager;
 
-public class GameScreen implements Screen {
+public class GameScreen implements Screen, InputProcessor {
     private LudumDare game;
 
     private OrthographicCamera cam;
@@ -32,10 +34,11 @@ public class GameScreen implements Screen {
         this.game = game;
         cam = new OrthographicCamera();
         port = new FitViewport(LudumDare.V_WIDTH, LudumDare.V_HEIGHT, cam);
-        cam.position.set(1250 * ChunkManager.TILE_SIZE, 975 * ChunkManager.TILE_SIZE, 0);
         world = new World();
+        cam.position.set(world.getPlayer().getPos(), 0);
         hud = new GameHud(this, world);
         debugRenderer = new ShapeRenderer();
+        Gdx.input.setInputProcessor(this);
     }
 
     @Override
@@ -45,13 +48,10 @@ public class GameScreen implements Screen {
 
     @Override
     public void render(float delta) {
-        if (Gdx.input.isKeyPressed(Input.Keys.LEFT)) cam.position.set(cam.position.x - 10, cam.position.y, 0);
-        if (Gdx.input.isKeyPressed(Input.Keys.RIGHT)) cam.position.set(cam.position.x + 10, cam.position.y, 0);
-        if (Gdx.input.isKeyPressed(Input.Keys.UP)) cam.position.set(cam.position.x, cam.position.y + 10, 0);
-        if (Gdx.input.isKeyPressed(Input.Keys.DOWN)) cam.position.set(cam.position.x, cam.position.y - 10, 0);
+        world.update();
+        cam.position.set(world.getPlayer().getPos(), 0);
         cam.update();
         hud.update(cam);
-        world.update(cam.position.x, cam.position.y);
         Gdx.gl.glClearColor(4.0f / 255.0f, 132.0f / 255.0f, 209.0f / 255.0f, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
@@ -92,5 +92,57 @@ public class GameScreen implements Screen {
     @Override
     public void dispose() {
 
+    }
+
+    @Override
+    public boolean keyDown(int keycode) {
+        if (keycode == Input.Keys.A) {
+            world.getPlayer().setVelocity(new Vector2(-10 * ChunkManager.TILE_SIZE, world.getPlayer().getVelocity().y));
+        }
+        if (keycode == Input.Keys.D) {
+            world.getPlayer().setVelocity(new Vector2(10 * ChunkManager.TILE_SIZE, world.getPlayer().getVelocity().y));
+        }
+        return true;
+    }
+
+    @Override
+    public boolean keyUp(int keycode) {
+        if (keycode == Input.Keys.A) {
+            world.getPlayer().setVelocity(new Vector2(0, world.getPlayer().getVelocity().y));
+        }
+        if (keycode == Input.Keys.D) {
+            world.getPlayer().setVelocity(new Vector2(0, world.getPlayer().getVelocity().y));
+        }
+        return true;
+    }
+
+    @Override
+    public boolean keyTyped(char character) {
+        return false;
+    }
+
+    @Override
+    public boolean touchDown(int screenX, int screenY, int pointer, int button) {
+        return false;
+    }
+
+    @Override
+    public boolean touchUp(int screenX, int screenY, int pointer, int button) {
+        return false;
+    }
+
+    @Override
+    public boolean touchDragged(int screenX, int screenY, int pointer) {
+        return false;
+    }
+
+    @Override
+    public boolean mouseMoved(int screenX, int screenY) {
+        return false;
+    }
+
+    @Override
+    public boolean scrolled(float amountX, float amountY) {
+        return false;
     }
 }
