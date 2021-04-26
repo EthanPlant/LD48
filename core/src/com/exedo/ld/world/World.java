@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
 import com.exedo.ld.world.block.BlockEntity;
 import com.exedo.ld.world.chunk.Chunk;
@@ -13,7 +14,9 @@ import com.exedo.ld.world.chunk.ChunkManager;
 import com.exedo.ld.world.entity.Player;
 
 public class World {
-    public final static long RANDOM_SEED = System.currentTimeMillis();
+    public static final long RANDOM_SEED = System.currentTimeMillis();
+    public static final float GRAV_STRENGTH = -10 * ChunkManager.TILE_SIZE;
+
     private ChunkManager chunkManager;
     private Array<BlockEntity> blockEntities;
     private Player player;
@@ -22,6 +25,7 @@ public class World {
         chunkManager = new ChunkManager();
         blockEntities = new Array<>();
         spawnPlayer();
+        player.setAcceleration(new Vector2(player.getAcceleration().x, GRAV_STRENGTH)); // Set player gravity
     }
 
     private void spawnPlayer() {

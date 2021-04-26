@@ -41,4 +41,12 @@ public abstract class Entity {
     public void setVelocity(Vector2 velocity) {
         this.velocity = velocity;
     }
+
+    public Vector2 getAcceleration() {
+        return acceleration;
+    }
+
+    public void setAcceleration(Vector2 accel) {
+        acceleration = accel;
+    }
 }

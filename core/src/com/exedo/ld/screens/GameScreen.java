@@ -107,10 +107,10 @@ public class GameScreen implements Screen, InputProcessor {
 
     @Override
     public boolean keyUp(int keycode) {
-        if (keycode == Input.Keys.A) {
+        if (keycode == Input.Keys.A && world.getPlayer().getVelocity().x < 0) {
             world.getPlayer().setVelocity(new Vector2(0, world.getPlayer().getVelocity().y));
         }
-        if (keycode == Input.Keys.D) {
+        if (keycode == Input.Keys.D && world.getPlayer().getVelocity().x > 0) {
             world.getPlayer().setVelocity(new Vector2(0, world.getPlayer().getVelocity().y));
         }
         return true;
